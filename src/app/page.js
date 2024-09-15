@@ -3,37 +3,34 @@
 
 import { useEffect, useState } from "react";
 
+
 export default function Home() {
 
   const [allData, setAllData] = useState(null)
-  const [currentCount, SetCurrentCount] = useState(null)
+  const [currentCount, setCurrentCount] = useState(null)
   const [updatedAt, setUpdatedAt] = useState(null)
 
   const addClick = async () => {
+
     const reqOptions = {
-      method: 'PUT',
+      method: "POST",
+      body: JSON.stringify({
+        "click_id": 1,
+        "click_count": 1000,
+        "timestamp": Date.now()
+      }),
+
+
       headers: {
-        'Content-Type': 'application/json',
-      },
-      body: 22,
-    };
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    }
+    const response = await fetch("/api/clicks", reqOptions)
 
-    const responce = await fetch('/api/clicks', reqOptions)
-    const data = await responce.json()
-    console.log(data)
-  }
-
-
-  const logData = (e) => {
-
-    console.log('data', e)
 
   }
-
-
 
   useEffect(() => {
-
     document.addEventListener("click", () => {
       addClick();
     })
@@ -41,8 +38,10 @@ export default function Home() {
       try {
         const data = await fetch("/api/clicks")
         const responce = await data.json()
-        logData(responce.runningCount)
         setAllData(responce.runningCount)
+        setCurrentCount(responce.runningCount[0].click_count)
+        setUpdatedAt(responce.runningCount[0].timestamp)
+
       } catch (e) {
         console.log(e);
       }
@@ -57,8 +56,9 @@ export default function Home() {
 
     return (
       <div>
-        <p> Running Count : {allData[0].click_count} </p>
-        <p> Last Click : {allData[0].timestamp} </p>
+        <p> Running Count : </p>
+        <p className="font-bold text-[100px] leading-tight">{currentCount} </p>
+        <p> Last Click : {updatedAt} </p>
       </div>
     )
   }
