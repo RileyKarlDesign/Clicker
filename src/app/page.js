@@ -14,17 +14,13 @@ export default function Home() {
 
     const reqOptions = {
       method: "POST",
-      body: JSON.stringify({
-        "click_id": 1,
-        "click_count": 1000,
-        "timestamp": Date.now()
-      }),
-
-
+      body: JSON.stringify("UPDATE allclicks.click_count SET click_count = 4000000"),
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json"
       }
     }
+
+    console.log(reqOptions.body)
     const response = await fetch("/api/clicks", reqOptions)
 
 
