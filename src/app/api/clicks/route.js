@@ -46,10 +46,9 @@ export async function GET(request) {
 export const POST = async function (req, res) {
 
     try {
-
         const connection = await mysql.createConnection(connectionParams)
         let get_exp_query = ''
-        get_exp_query = 'UPDATE allclicks.click_count SET click_count = 1000000'
+        get_exp_query = 'UPDATE allclicks.click_count SET click_count = 666555'
         let values = []
         const [results] = await connection.execute(get_exp_query, values)
         connection.end()
