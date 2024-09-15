@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from "react";
 
-
 export default function Home() {
 
   const [allData, setAllData] = useState(null)
