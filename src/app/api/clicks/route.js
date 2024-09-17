@@ -46,7 +46,19 @@ export async function GET(request) {
 export const POST = async function (req, res) {
 
     try {
-        const count = request.count;
+
+        function streamToString (req) {
+            const chunks = [];
+            return new Promise((resolve, reject) => {
+              stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+              stream.on('error', (err) => reject(err));
+              stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+            })
+          }
+          
+        const result = await streamToString(stream)
+
+        const count = req.count;
         const connection = await mysql.createConnection(connectionParams)
         // let get_exp_query = 'UPDATE allclicks.click_count SET click_count = 666555'
         let get_exp_query = 'UPDATE allclicks.click_count SET click_count = ?';
