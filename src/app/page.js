@@ -22,11 +22,38 @@ export default function Home() {
         "Content-type": "application/json"
       }
     }
-    console.log(reqOptions.body)
+    console.log(reqOptions)
     const response = await fetch("/api/clicks", reqOptions)
-
-
   }
+
+  // const addClick = async () => {
+
+  //   const updateQuery = 'UPDATE allclicks.click_count SET click_count = 100';
+  //   const values = [100];
+
+  //   const reqOptions = {
+  //     method: "POST",
+  //     body: JSON.stringify(
+  //       'UPDATE allclicks.click_count SET click_count = 100',
+  //     ),
+  //     headers: {
+  //       "Content-type": "application/json"
+  //     }
+  //   };
+
+  //   try {
+  //     const response = await fetch("/api/clicks", reqOptions);
+  //     if (!response.ok) {
+  //       throw new Error('Failed to update click count');
+  //     }
+  //     // Optionally, you can update the state here if the API returns the new count
+  //     // const data = await response.json();
+  //     // setCurrentCount(data.newCount);
+  //   } catch (error) {
+  //     console.error("Error updating click count:", error);
+  //   }
+  // };
+
 
   useEffect(() => {
     document.addEventListener("click", () => {
